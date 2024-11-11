@@ -2,7 +2,7 @@
 param location string = resourceGroup().location
 
 @description('Password for the SQL Server admin user. PLEASE CHANGE THIS BEFORE DEPLOYMENT!')
-param sqlAdminPassword string = 'g@G9@2nD7C1BP%uh'
+param sqlAdminPassword string = 'PandaJumps!XL'
 
 @description('Model deployments for OpenAI')
 param deployments array = [
@@ -26,7 +26,7 @@ param restore bool = false
 param apimPublisherEmail string = 'support@contososuites.com'
 
 var apiManagementServiceName = 'apim-${uniqueString(resourceGroup().id)}'
-var apimSku = 'Basicv2'
+var apimSku = ''
 var apimSkuCount = 1
 var apimPublisherName = 'Contoso Suites'
 
@@ -374,12 +374,12 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
   }
 }
 
-resource apiManagementService 'Microsoft.ApiManagement/service@2023-09-01-preview' = {
+resource apiManagementService 'Microsoft.ApiManagement/service@2024-05-01' = {
   name: apiManagementServiceName
   location: location
   sku: {
-    name: apimSku
-    capacity: apimSkuCount
+    name: 'Consumption'
+    capacity: 0
   }
   identity: {
     type: 'SystemAssigned'
