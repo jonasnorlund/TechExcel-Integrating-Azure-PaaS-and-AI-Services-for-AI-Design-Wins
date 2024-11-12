@@ -1,7 +1,7 @@
 ﻿using Azure.AI.OpenAI;
 using ContosoSuitesWebAPI.Entities;
 using Microsoft.Azure.Cosmos;
-
+//up
 namespace ContosoSuitesWebAPI.Services
 {
     /// <summary>

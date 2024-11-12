@@ -10,3 +10,4 @@ namespace ContosoSuitesWebAPI.Services
         Task<List<VectorSearchResult>> ExecuteVectorSearch(float[] queryVector, int max_results = 0, double minimum_similarity_score = 0.8);
     }
 }
+//up
