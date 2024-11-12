@@ -350,3 +350,4 @@ ASALocalRun/
 
 **/config_full.json
 note.txt
+src/ContosoSuitesWebAPI/local.appsettings.json
