@@ -233,146 +233,146 @@ resource containerRegistry 'Microsoft.ContainerRegistry/registries@2022-12-01' =
   }
 }
 
-@description('Creates an Azure App Service Plan.')
-resource appServicePlan 'Microsoft.Web/serverFarms@2022-09-01' = {
-  name: appServicePlanName
-  location: location
-  kind: 'linux'
-  properties: {
-    reserved: true
-  }
-  sku: {
-    name: webAppSku
-  }
-}
+// @description('Creates an Azure App Service Plan.')
+// resource appServicePlan 'Microsoft.Web/serverFarms@2022-09-01' = {
+//   name: appServicePlanName
+//   location: location
+//   kind: 'linux'
+//   properties: {
+//     reserved: true
+//   }
+//   sku: {
+//     name: webAppSku
+//   }
+// }
 
-@description('Creates an Azure App Service for the API.')
-resource appServiceApp 'Microsoft.Web/sites@2022-09-01' = {
-  name: webAppNameApi
-  location: location
-  properties: {
-    serverFarmId: appServicePlan.id
-    httpsOnly: true
-    clientAffinityEnabled: false
-    siteConfig: {
-      linuxFxVersion: 'DOCKER|${containerRegistry.name}.azurecr.io/${uniqueString(resourceGroup().id)}/techexcel/csapi'
-      http20Enabled: true
-      minTlsVersion: '1.2'
-      appCommandLine: ''
-      appSettings: [
-        {
-          name: 'WEBSITES_ENABLE_APP_SERVICE_STORAGE'
-          value: 'false'
-        }
-        {
-          name: 'DOCKER_REGISTRY_SERVER_URL'
-          value: 'https://${containerRegistry.name}.azurecr.io'
-        }
-        {
-          name: 'DOCKER_REGISTRY_SERVER_USERNAME'
-          value: containerRegistry.name
-        }
-        {
-          name: 'DOCKER_REGISTRY_SERVER_PASSWORD'
-          value: containerRegistry.listCredentials().passwords[0].value
-        }
-        {
-          name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
-          value: appInsights.properties.InstrumentationKey
-        }
-        ]
-      }
-    }
-}
+// @description('Creates an Azure App Service for the API.')
+// resource appServiceApp 'Microsoft.Web/sites@2022-09-01' = {
+//   name: webAppNameApi
+//   location: location
+//   properties: {
+//     serverFarmId: appServicePlan.id
+//     httpsOnly: true
+//     clientAffinityEnabled: false
+//     siteConfig: {
+//       linuxFxVersion: 'DOCKER|${containerRegistry.name}.azurecr.io/${uniqueString(resourceGroup().id)}/techexcel/csapi'
+//       http20Enabled: true
+//       minTlsVersion: '1.2'
+//       appCommandLine: ''
+//       appSettings: [
+//         {
+//           name: 'WEBSITES_ENABLE_APP_SERVICE_STORAGE'
+//           value: 'false'
+//         }
+//         {
+//           name: 'DOCKER_REGISTRY_SERVER_URL'
+//           value: 'https://${containerRegistry.name}.azurecr.io'
+//         }
+//         {
+//           name: 'DOCKER_REGISTRY_SERVER_USERNAME'
+//           value: containerRegistry.name
+//         }
+//         {
+//           name: 'DOCKER_REGISTRY_SERVER_PASSWORD'
+//           value: containerRegistry.listCredentials().passwords[0].value
+//         }
+//         {
+//           name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
+//           value: appInsights.properties.InstrumentationKey
+//         }
+//         ]
+//       }
+//     }
+// }
 
-@description('Creates an Azure App Service for the Dashboard.')
-resource appServiceAppDash 'Microsoft.Web/sites@2022-09-01' = {
-  name: webAppNameDash
-  location: location
-  properties: {
-    serverFarmId: appServicePlan.id
-    httpsOnly: true
-    clientAffinityEnabled: false
-    siteConfig: {
-      linuxFxVersion: 'DOCKER|${containerRegistry.name}.azurecr.io/${uniqueString(resourceGroup().id)}/techexcel/csdash'
-      http20Enabled: true
-      minTlsVersion: '1.2'
-      appCommandLine: ''
-      appSettings: [
-        {
-          name: 'WEBSITES_ENABLE_APP_SERVICE_STORAGE'
-          value: 'false'
-        }
-        {
-          name: 'DOCKER_REGISTRY_SERVER_URL'
-          value: 'https://${containerRegistry.name}.azurecr.io'
-        }
-        {
-          name: 'DOCKER_REGISTRY_SERVER_USERNAME'
-          value: containerRegistry.name
-        }
-        {
-          name: 'DOCKER_REGISTRY_SERVER_PASSWORD'
-          value: containerRegistry.listCredentials().passwords[0].value
-        }
-        {
-          name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
-          value: appInsights.properties.InstrumentationKey
-        }
-        ]
-      }
-    }
-}
+// @description('Creates an Azure App Service for the Dashboard.')
+// resource appServiceAppDash 'Microsoft.Web/sites@2022-09-01' = {
+//   name: webAppNameDash
+//   location: location
+//   properties: {
+//     serverFarmId: appServicePlan.id
+//     httpsOnly: true
+//     clientAffinityEnabled: false
+//     siteConfig: {
+//       linuxFxVersion: 'DOCKER|${containerRegistry.name}.azurecr.io/${uniqueString(resourceGroup().id)}/techexcel/csdash'
+//       http20Enabled: true
+//       minTlsVersion: '1.2'
+//       appCommandLine: ''
+//       appSettings: [
+//         {
+//           name: 'WEBSITES_ENABLE_APP_SERVICE_STORAGE'
+//           value: 'false'
+//         }
+//         {
+//           name: 'DOCKER_REGISTRY_SERVER_URL'
+//           value: 'https://${containerRegistry.name}.azurecr.io'
+//         }
+//         {
+//           name: 'DOCKER_REGISTRY_SERVER_USERNAME'
+//           value: containerRegistry.name
+//         }
+//         {
+//           name: 'DOCKER_REGISTRY_SERVER_PASSWORD'
+//           value: containerRegistry.listCredentials().passwords[0].value
+//         }
+//         {
+//           name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
+//           value: appInsights.properties.InstrumentationKey
+//         }
+//         ]
+//       }
+//     }
+// }
 
-resource functionAppServicePlan 'Microsoft.Web/serverFarms@2022-09-01' = {
-  name: functionAppServicePlanName
-  location: location
-  sku: {
-    name: 'Y1'
-    tier: 'Dynamic'
-  }
-  properties: {}
-}
+// resource functionAppServicePlan 'Microsoft.Web/serverFarms@2022-09-01' = {
+//   name: functionAppServicePlanName
+//   location: location
+//   sku: {
+//     name: 'Y1'
+//     tier: 'Dynamic'
+//   }
+//   properties: {}
+// }
 
-resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
-  name: functionAppName
-  location: location
-  kind: 'functionapp'
-  properties: {
-    serverFarmId: functionAppServicePlan.id
-    siteConfig: {
-      appSettings: [
-        {
-          name: 'AzureWebJobsStorage'
-          value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
-        }
-        {
-          name: 'WEBSITE_USE_PLACEHOLDER_DOTNETISOLATED'
-          value: '1'
-        }
-        {
-          name: 'FUNCTIONS_EXTENSION_VERSION'
-          value: '~4'
-        }
-        {
-          name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
-          value: appInsights.properties.ConnectionString
-        }
-        {
-          name: 'FUNCTIONS_WORKER_RUNTIME'
-          value: 'dotnet-isolated'
-        }
-      ]
-      ftpsState: 'FtpsOnly'
-      minTlsVersion: '1.2'
-      netFrameworkVersion: 'v8.0'
-    }
-    httpsOnly: true
-    virtualNetworkSubnetId: null
-    publicNetworkAccess: 'Enabled'
-    clientAffinityEnabled: false
-  }
-}
+// resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
+//   name: functionAppName
+//   location: location
+//   kind: 'functionapp'
+//   properties: {
+//     serverFarmId: functionAppServicePlan.id
+//     siteConfig: {
+//       appSettings: [
+//         {
+//           name: 'AzureWebJobsStorage'
+//           value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
+//         }
+//         {
+//           name: 'WEBSITE_USE_PLACEHOLDER_DOTNETISOLATED'
+//           value: '1'
+//         }
+//         {
+//           name: 'FUNCTIONS_EXTENSION_VERSION'
+//           value: '~4'
+//         }
+//         {
+//           name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+//           value: appInsights.properties.ConnectionString
+//         }
+//         {
+//           name: 'FUNCTIONS_WORKER_RUNTIME'
+//           value: 'dotnet-isolated'
+//         }
+//       ]
+//       ftpsState: 'FtpsOnly'
+//       minTlsVersion: '1.2'
+//       netFrameworkVersion: 'v8.0'
+//     }
+//     httpsOnly: true
+//     virtualNetworkSubnetId: null
+//     publicNetworkAccess: 'Enabled'
+//     clientAffinityEnabled: false
+//   }
+// }
 
 resource apiManagementService 'Microsoft.ApiManagement/service@2024-05-01' = {
   name: apiManagementServiceName
@@ -396,10 +396,10 @@ output storageAccountName string = storageAccount.name
 output searchServiceName string = searchService.name
 output openAIEndpoint string = openAI.properties.endpoint
 output speechServiceName string = speechService.name
-output application_name string = appServiceApp.name
-output application_url string = appServiceApp.properties.hostNames[0]
-output container_registry_name string = containerRegistry.name
-output application_name_dash string = appServiceAppDash.name
-output application_url_dash string = appServiceAppDash.properties.hostNames[0]
-output function_app_name string = functionApp.name
+// output application_name string = appServiceApp.name
+// output application_url string = appServiceApp.properties.hostNames[0]
+// output container_registry_name string = containerRegistry.name
+// output application_name_dash string = appServiceAppDash.name
+// output application_url_dash string = appServiceAppDash.properties.hostNames[0]
+// output function_app_name string = functionApp.name
 output apiManagementServiceName string = apiManagementService.name
